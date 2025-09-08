@@ -1,0 +1,55 @@
+
+.sifre-degistir-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8f9fa;
+}
+
+.sifre-degistir-form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+.sifre-degistir-form h2 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-right: 0;
+}
+
+.form-control {
+    border-left: 0;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.alert {
+    border-radius: 8px;
+}

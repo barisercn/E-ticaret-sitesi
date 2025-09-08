@@ -1,0 +1,56 @@
+.device-page-background {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8e44ad 100%);
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .device-page-container {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem 0;
+  }
+  
+  .loading-message,
+  .no-device-message {
+    text-align: center;
+    padding: 3rem 0;
+  }
+  
+  .loading-message .spinner-border {
+    margin-bottom: 1rem;
+  }
+  
+  .loading-message p,
+  .no-device-message p {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  
+  .no-device-message i {
+    color: #ffc107; /* warning color */
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .device-cards-row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive adjustments for padding */
+  @media (max-width: 768px) {
+    .device-page-container {
+      padding: 1rem 0.5rem;
+    }
+  }

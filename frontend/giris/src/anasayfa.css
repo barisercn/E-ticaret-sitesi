@@ -1,0 +1,65 @@
+.bi-person-circle {
+  margin-right: 8px;
+  margin-top: 5px;
+}
+.bi-cart{
+  margin-right: 8px;
+  margin-top: 5px;
+
+}
+.bi-chat-left-text{
+  margin-right: 8px;
+  margin-top: 5px;
+  
+}
+.bi-heart{
+  margin-top: 5px;
+  margin-right: 8px;
+}
+.nav-link{
+  display: block;
+  padding: 10px 15px;
+}
+.nav-link:hover {
+  background-color: #2196f3; /* istediğin renk */
+
+}
+.no-hover:hover {
+  background-color: transparent !important;
+}
+
+/* Hero Section - İyileştirilmiş */
+.hero-section {
+  width: 100vw; /* Tam ekran genişliği */
+  height: calc(100vh - 70px); /* Modern navbar yüksekliği (70px) çıkarıldı */
+  background-image: url("/resimler/20250831_1625_image.png");
+  background-size: cover; /* Fotoğraf tam alanı kaplasın */
+  background-position: center center; /* Tam ortalanmış */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Parallax efekti için */
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Hero section için overlay (isteğe bağlı) */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3); /* Hafif karartma */
+  z-index: 1;
+}
+
+/* Hero section içeriği için */
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
+.nav-link .bi-phone {
+  font-size: 1.4rem; /* biraz daha büyüt ki diğerleriyle hizalansın */
+}

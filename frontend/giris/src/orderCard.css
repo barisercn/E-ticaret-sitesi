@@ -1,0 +1,509 @@
+.order-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    max-width: 380px;
+    margin: 0 auto;
+    height: 600px; /* Sabit yükseklik */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.2);
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
+  }
+  
+  /* Image Container - Yüksek Çözünürlük */
+  .order-card-image-container {
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    margin: 16px;
+    margin-bottom: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  .order-card-image {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+    /* Yüksek çözünürlük için */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    filter: contrast(1.1) brightness(1.05);
+  }
+  
+  .order-card:hover .order-card-image {
+    transform: scale(1.08);
+  }
+  
+  /* Card Body */
+  .order-card-body {
+    padding: 1.5rem 1.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    overflow-y: auto; /* İçerik taşarsa scroll */
+  }
+  
+  .order-card-title {
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    color: #2d3748 !important;
+    text-align: center;
+    margin-bottom: 0;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    min-height: 3.6rem; /* Başlık için sabit yükseklik */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* İki satırla sınırlı */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Specifications Section */
+  .order-card-specs {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    flex-shrink: 0; /* Küçülmesini engelle */
+  }
+  
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .spec-item:last-child {
+    border-bottom: none;
+  }
+  
+  .spec-label {
+    font-weight: 700 !important;
+    color: #4a5568 !important;
+    font-size: 0.95rem;
+    min-width: 100px;
+  }
+  
+  .spec-value {
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+    font-size: 0.95rem;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+  }
+  
+  /* Pricing Section */
+  .order-card-pricing {
+    background: linear-gradient(145deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    flex-shrink: 0; /* Küçülmesini engelle */
+  }
+  
+  .pricing-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .pricing-item:last-child {
+    border-bottom: none;
+  }
+  
+  .pricing-label {
+    font-weight: 700 !important;
+    color: #4a5568 !important;
+    font-size: 1rem;
+    min-width: 100px;
+  }
+  
+  .pricing-value {
+    font-weight: 700 !important;
+    color: #2d3748 !important;
+    font-size: 1rem;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+  }
+  
+  .pricing-value.quantity {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800 !important;
+    font-size: 1.1rem;
+  }
+  
+  /* Total Price Highlight */
+  .pricing-item.total {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0.5rem -1.25rem -1rem -1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0 12px 12px;
+    border-bottom: none;
+  }
+  
+  .pricing-item.total .pricing-label,
+  .pricing-item.total .pricing-value {
+    color: white !important;
+    font-weight: 800 !important;
+    font-size: 1.15rem !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .total-price {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900 !important;
+    font-size: 1.3rem !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .order-card {
+      max-width: 100%;
+      height: 550px; /* Responsive sabit yükseklik */
+    }
+    
+    .order-card-image-container {
+      height: 200px;
+      margin: 12px;
+      padding: 16px;
+    }
+    
+    .order-card-title {
+      font-size: 1.1rem !important;
+    }
+    
+    .order-card-body {
+      padding: 1.25rem 1.5rem;
+      gap: 1rem;
+    }
+    
+    .spec-label,
+    .spec-value {
+      font-size: 0.9rem;
+    }
+    
+    .pricing-label,
+    .pricing-value {
+      font-size: 0.95rem;
+    }
+    
+    .pricing-item.total .pricing-label,
+    .pricing-item.total .pricing-value {
+      font-size: 1.05rem !important;
+    }
+    
+    .total-price {
+      font-size: 1.2rem !important;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .order-card {
+      height: 520px; /* Daha küçük ekranlar için sabit yükseklik */
+    }
+    
+    .order-card-image-container {
+      height: 180px;
+      margin: 10px;
+      padding: 14px;
+    }
+    
+    .order-card-body {
+      padding: 1rem 1.25rem;
+    }
+    
+    .spec-label {
+      min-width: 80px;
+    }
+    
+    .pricing-label {
+      min-width: 80px;
+    }
+  }
+  
+  /* Custom scrollbar for order-card-body */
+  .order-card-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .order-card-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .order-card-body::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 3px;
+  }
+  
+  .order-card-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+  }
+  
+  .order-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.2);
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
+  }
+  
+  /* Image Container - Yüksek Çözünürlük */
+  .order-card-image-container {
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    margin: 16px;
+    margin-bottom: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  .order-card-image {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+    /* Yüksek çözünürlük için */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    filter: contrast(1.1) brightness(1.05);
+  }
+  
+  .order-card:hover .order-card-image {
+    transform: scale(1.08);
+  }
+  
+  /* Card Body */
+  .order-card-body {
+    padding: 1.5rem 1.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .order-card-title {
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    color: #2d3748 !important;
+    text-align: center;
+    margin-bottom: 0;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Specifications Section */
+  .order-card-specs {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+  }
+  
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .spec-item:last-child {
+    border-bottom: none;
+  }
+  
+  .spec-label {
+    font-weight: 700 !important;
+    color: #4a5568 !important;
+    font-size: 0.95rem;
+    min-width: 100px;
+  }
+  
+  .spec-value {
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+    font-size: 0.95rem;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+  }
+  
+  /* Pricing Section */
+  .order-card-pricing {
+    background: linear-gradient(145deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+  }
+  
+  .pricing-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .pricing-item:last-child {
+    border-bottom: none;
+  }
+  
+  .pricing-label {
+    font-weight: 700 !important;
+    color: #4a5568 !important;
+    font-size: 1rem;
+    min-width: 100px;
+  }
+  
+  .pricing-value {
+    font-weight: 700 !important;
+    color: #2d3748 !important;
+    font-size: 1rem;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+  }
+  
+  .pricing-value.quantity {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800 !important;
+    font-size: 1.1rem;
+  }
+  
+  /* Total Price Highlight */
+  .pricing-item.total {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0.5rem -1.25rem -1rem -1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0 12px 12px;
+    border-bottom: none;
+  }
+  
+  .pricing-item.total .pricing-label,
+  .pricing-item.total .pricing-value {
+    color: white !important;
+    font-weight: 800 !important;
+    font-size: 1.15rem !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .total-price {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900 !important;
+    font-size: 1.3rem !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .order-card {
+      max-width: 100%;
+      min-height: 500px;
+    }
+    
+    .order-card-image-container {
+      height: 200px;
+      margin: 12px;
+      padding: 16px;
+    }
+    
+    .order-card-title {
+      font-size: 1.1rem !important;
+    }
+    
+    .order-card-body {
+      padding: 1.25rem 1.5rem;
+      gap: 1rem;
+    }
+    
+    .spec-label,
+    .spec-value {
+      font-size: 0.9rem;
+    }
+    
+    .pricing-label,
+    .pricing-value {
+      font-size: 0.95rem;
+    }
+    
+    .pricing-item.total .pricing-label,
+    .pricing-item.total .pricing-value {
+      font-size: 1.05rem !important;
+    }
+    
+    .total-price {
+      font-size: 1.2rem !important;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .order-card {
+      min-height: 480px;
+    }
+    
+    .order-card-image-container {
+      height: 180px;
+      margin: 10px;
+      padding: 14px;
+    }
+    
+    .order-card-body {
+      padding: 1rem 1.25rem;
+    }
+    
+    .spec-label {
+      min-width: 80px;
+    }
+    
+    .pricing-label {
+      min-width: 80px;
+    }
+  }
+  
