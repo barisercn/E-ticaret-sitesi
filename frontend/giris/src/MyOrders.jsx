@@ -1,42 +1,58 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Navbar from "./navbar.jsx";
-import OrderCard from "./OrderCard.jsx"
+import OrderCard from "./OrderCard.jsx";
 import "./myOrders.css";
 
 function MyOrders() {
-  const [orders, setOrders] = useState([]);
+  const [groupedOrders, setGroupedOrders] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchAndGroupOrders = async () => {
       try {
         const personId = localStorage.getItem("PersonID");
-
         if (!personId) {
-          setError("PersonID bulunamadı!");
+          setError("Kullanıcı kimliği bulunamadı. Lütfen tekrar giriş yapın.");
           setLoading(false);
           return;
         }
 
         const response = await fetch("http://localhost:3000/myOrders", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ personId: parseInt(personId) })
         });
 
         if (!response.ok) {
-          throw new Error("Siparişler alınamadı!");
+          throw new Error(`Siparişler alınamadı: ${response.statusText}`);
         }
 
         const data = await response.json();
-        console.log("Siparişler:", data);
-        setOrders(data);
+
+        // Group orders by OrderID
+        const orders = data.reduce((acc, order) => {
+          const { orderId, orderDate, total_price } = order; // FIX: Changed to total_price
+          if (!acc[orderId]) {
+            acc[orderId] = {
+              orderId,
+              orderDate: new Date(orderDate).toLocaleDateString('tr-TR'),
+              totalPrice: total_price || 0, // FIX: Used total_price and added a fallback
+              items: []
+            };
+          }
+          acc[orderId].items.push({
+            name: order.phone_name,
+            quantity: order.quantity,
+            price: order.unit_price,
+            cover: order.cover
+          });
+          return acc;
+        }, {});
+
+        setGroupedOrders(orders);
       } catch (err) {
         console.error("Hata:", err);
         setError(err.message);
@@ -45,15 +61,16 @@ function MyOrders() {
       }
     };
 
-    fetchOrders();
+    fetchAndGroupOrders();
   }, []);
+
+  const sortedOrderIds = Object.keys(groupedOrders).sort((a, b) => b - a);
 
   return (
     <>
       <Navbar />
       <div className="my-orders-page">
         <div className="background-overlay" />
-        
         <div className="container my-orders-container">
           <h1 className="page-title">
             <i className="bi bi-box-seam me-3"></i>
@@ -62,29 +79,25 @@ function MyOrders() {
 
           {loading ? (
             <div className="loading-message">
-              <div className="spinner-border text-light mb-3" role="status">
-                <span className="visually-hidden">Yükleniyor...</span>
-              </div>
+              <div className="spinner-border text-light" role="status"></div>
               <p>Siparişleriniz yükleniyor...</p>
             </div>
           ) : error ? (
             <div className="error-message">
-              <i className="bi bi-exclamation-triangle text-warning fs-1 mb-3"></i>
-              <p>Hata: {error}</p>
+              <i className="bi bi-exclamation-triangle text-warning"></i>
+              <p>{error}</p>
             </div>
-          ) : orders.length > 0 ? (
-            <div className="order-cards-row">
-              {orders.map((order, idx) => (
-                <div key={idx} className="order-card-col">
-                  <OrderCard order={order} />
-                </div>
+          ) : sortedOrderIds.length > 0 ? (
+            <div className="orders-list">
+              {sortedOrderIds.map(orderId => (
+                <OrderCard key={orderId} order={groupedOrders[orderId]} />
               ))}
             </div>
           ) : (
             <div className="no-orders-message">
-              <i className="bi bi-cart-x text-light fs-1 mb-3"></i>
+              <i className="bi bi-cart-x"></i>
               <p>Henüz hiç siparişiniz bulunmuyor.</p>
-              <p className="text-muted">İlk siparişinizi vermek için ürünleri incelemeye başlayın!</p>
+              <p className="text-white-50">İlk siparişinizi vermek için ürünleri incelemeye başlayın!</p>
             </div>
           )}
         </div>
@@ -94,4 +107,3 @@ function MyOrders() {
 }
 
 export default MyOrders;
-

@@ -81,7 +81,7 @@ function Sifredegistir() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="newPassword">Yeni Şifre</label>
+            <label htmlFor="newPassword"></label>
             <div className="input-group">
               <span className="input-group-text">
                 <i className="bi bi-key-fill"></i>
@@ -99,7 +99,7 @@ function Sifredegistir() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="confirmPassword">Yeni Şifre (Tekrar)</label>
+            <label htmlFor="confirmPassword"></label>
             <div className="input-group">
               <span className="input-group-text">
                 <i className="bi bi-key-fill"></i>
@@ -120,7 +120,7 @@ function Sifredegistir() {
           {message && <div className="alert alert-success text-center">{message}</div>}
 
           <button type="submit" className="btn btn-primary mt-3">
-            Şifreyi Güncelle
+            
           </button>
         </form>
       </div>

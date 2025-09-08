@@ -1,0 +1,61 @@
+/* login.css */
+
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); /* Soft gradient background */
+}
+
+.login-form-wrapper {
+  width: 100%;
+  max-width: 450px; /* Adjusted width */
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center align content */
+}
+
+.login-form-wrapper h2 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #333;
+}
+
+.login-form-wrapper .form-label {
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.login-form-wrapper .input-group .form-control {
+  height: 50px;
+  border-left: 0;
+}
+
+.login-form-wrapper .input-group-text {
+  background-color: transparent;
+  border-right: 0;
+}
+
+.login-form-wrapper .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.login-form-wrapper .btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.login-form-wrapper .extra-links {
+  text-align: center; /* Center the single link */
+  margin-top: 20px;
+}

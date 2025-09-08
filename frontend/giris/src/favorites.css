@@ -1,0 +1,39 @@
+/* favorites.css */
+
+.favorites-page-background {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8e44ad 100%);
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.favorites-title {
+  color: #ffffff;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.no-favorites-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  margin-top: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.no-favorites-container i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.no-favorites-container p {
+  font-size: 1.25rem;
+  font-weight: 600;
+}

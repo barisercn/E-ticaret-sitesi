@@ -1,347 +1,170 @@
+/* deviceCard.css - Revised */
+
 .card {
   background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
   border: none;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden; /* Resim taşmasını önler */
-  max-width: 350px;
-  margin: 0 auto;
-  height: auto;
-  min-height: 480px;
-  max-height: 520px;
-  position: relative;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
-  background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Image Container - Resim taşmasını önler */
 .image-container {
   width: 100%;
-  height: 180px;
-  padding: 12px;
+  height: 220px; /* Reduced photo height */
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 12px;
-  margin: 12px;
-  margin-bottom: 0;
-  overflow: hidden;
-  box-sizing: border-box;
+  background-color: #f8f9fa;
+  position: relative;
 }
 
-/* Card Image Optimization - Kesinlikle taşmaz */
 .card-img-top {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures the whole image is visible */
   transition: transform 0.3s ease;
-  border-radius: 8px;
 }
 
 .card:hover .card-img-top {
   transform: scale(1.05);
 }
 
-/* Remove Button - Sabit Pozisyon */
-.remove-btn {
-  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%) !important;
-  border: none !important;
-  border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3) !important;
-  transition: all 0.3s ease !important;
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  z-index: 100 !important;
-  pointer-events: auto !important;
-}
-
-.remove-btn:hover {
-  background: linear-gradient(135deg, #c53030 0%, #a02626 100%) !important;
-  transform: scale(1.15) !important;
-  box-shadow: 0 4px 16px rgba(229, 62, 62, 0.5) !important;
-}
-
-.remove-btn i {
-  color: white !important;
-  font-size: 14px !important;
-  font-weight: bold !important;
-}
-
-/* Card hover sırasında X butonunun kaybolmaması için */
-.card:hover .remove-btn {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* Card Body Optimization */
 .card-body {
-  padding: 1rem 1.25rem;
+  padding: 1.25rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .card-title {
-  font-size: 1.1rem !important;
-  font-weight: 700 !important;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #2d3748;
   margin-bottom: 0.75rem;
   line-height: 1.3;
   height: 2.6rem;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 
-/* Specifications List */
-.card-body ul {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  margin-bottom: 0;
+.device-specs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  flex-grow: 1; /* Pushes footer down */
 }
 
-.card-body li {
-  margin-bottom: 0.3rem;
+.device-specs li {
   color: #4a5568;
-  padding: 0.2rem 0;
+  margin-bottom: 0.4rem;
 }
 
-.card-body li strong {
+.device-specs li strong {
   color: #2d3748;
-  font-weight: 600;
+  min-width: 80px;
   display: inline-block;
-  min-width: 70px;
 }
 
-/* Card Footer Optimization */
 .card-footer {
   background: transparent;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid #e2e8f0;
   padding: 1rem 1.25rem;
   margin-top: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  flex-direction: column; /* Vertical layout for footer items */
+  gap: 1rem; /* Space between quantity and add-to-cart */
 }
 
-/* Quantity Controls - Her zaman görünür */
 .quantity-controls {
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 10px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(102, 126, 234, 0.1);
-  display: flex !important;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* Center the controls */
   gap: 0.75rem;
   width: 100%;
-  max-width: 200px;
 }
 
 .quantity-btn {
-  border: 2px solid #a0aec0 !important;
+  border: 1px solid #cbd5e0 !important;
+  background-color: #ffffff !important;
   color: #4a5568 !important;
-  background: white !important;
   border-radius: 8px !important;
-  width: 35px !important;
-  height: 35px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-weight: 600 !important;
-  transition: all 0.2s ease !important;
-  padding: 0 !important;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  transition: background-color 0.2s ease;
 }
 
 .quantity-btn:hover {
-  background: #667eea !important;
-  border-color: #667eea !important;
-  color: white !important;
-  transform: scale(1.1);
+  background-color: #edf2f7 !important;
 }
 
 .quantity-display {
-  font-weight: 700 !important;
-  color: #2d3748 !important;
-  min-width: 40px !important;
-  text-align: center !important;
-  font-size: 1.1rem !important;
-  background: white;
-  border-radius: 6px;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2d3748;
+  min-width: 40px;
+  text-align: center;
 }
 
-/* Action Buttons Container */
-.action-buttons {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 0.75rem;
-}
-
-/* Add to Cart Button */
 .add-to-cart-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border: none !important;
   border-radius: 10px !important;
   font-weight: 600 !important;
-  font-size: 1rem !important;
-  padding: 12px 16px !important;
+  padding: 0.75rem 1rem !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
-  flex-grow: 1;
   color: white !important;
+  width: 100%; /* Full width button */
 }
 
 .add-to-cart-btn:hover {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4) !important;
-  color: white !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
 }
 
-/* Favorite Button */
+/* Style for the success state of the button */
+.add-to-cart-btn.success {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+  cursor: not-allowed;
+}
+
+.favorite-btn, .remove-btn {
+  position: absolute;
+  top: 1rem;
+  border-radius: 50% !important;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 .favorite-btn {
-  border: 2px solid #e53e3e !important;
+  right: 1rem;
+  background-color: white !important;
   color: #e53e3e !important;
-  background: transparent !important;
-  border-radius: 10px !important;
-  transition: all 0.3s ease !important;
-  width: 45px !important;
-  height: 45px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 1.3rem !important;
-  flex-shrink: 0;
-  padding: 0 !important;
 }
 
 .favorite-btn:hover {
+    background-color: #e53e3e !important;
+    color: white !important;
+}
+
+.remove-btn {
+  left: 1rem;
   background: #e53e3e !important;
   color: white !important;
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3) !important;
-}
-
-/* Alert Styles */
-.alert-success {
-  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
-  border: none !important;
-  border-radius: 10px !important;
-  color: white !important;
-  font-weight: 600 !important;
-  font-size: 0.9rem !important;
-  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3) !important;
-  animation: slideInDown 0.3s ease;
-  padding: 0.5rem 1rem !important;
-  margin-bottom: 0.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: auto !important;
-}
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .card {
-    max-width: 100%;
-    min-height: 450px;
-    max-height: 480px;
-  }
-  
-  .remove-btn {
-    width: 28px !important;
-    height: 28px !important;
-    top: 8px !important;
-    right: 8px !important;
-  }
-  
-  .remove-btn i {
-    font-size: 12px !important;
-  }
-  
-  .card-img-top {
-    max-height: 160px !important;
-  }
-  
-  .card-title {
-    font-size: 1rem !important;
-  }
-  
-  .card-body li {
-    font-size: 0.8rem;
-  }
-  
-  .btn-primary {
-    font-size: 0.9rem !important;
-    padding: 8px 12px !important;
-  }
-  
-  .quantity-controls {
-    padding: 0.4rem 0.6rem;
-  }
-  
-  .quantity-display {
-    font-size: 1rem !important;
-    min-width: 30px !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .card {
-    min-height: 420px;
-    max-height: 450px;
-  }
-  
-  .card-img-top {
-    max-height: 140px !important;
-    margin: 8px;
-    padding: 12px !important;
-  }
-  
-  .card-body {
-    padding: 0.75rem 1rem;
-  }
-  
-  .card-footer {
-    padding: 0.75rem 1rem;
-  }
-  
-  .remove-btn {
-    width: 26px !important;
-    height: 26px !important;
-  }
 }

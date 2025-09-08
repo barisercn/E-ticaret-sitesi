@@ -61,7 +61,7 @@ const Order = () => {
       if (!response.ok) throw new Error('Sipariş gönderilemedi!');
   
       const result = await response.json();
-      console.log('Backend Response:', result);
+   
   
       // Başarılıysa formu ve sepeti temizle
       setIsSubmitted(true);

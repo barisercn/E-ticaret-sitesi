@@ -1,68 +1,55 @@
-import React from "react";
-import {useState} from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./orderCard.css"
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import "./orderCard.css";
 
 function OrderCard({ order }) {
-  const [quantity, setQuantity] = useState(order.quantity ?? 1);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
-    <div className="order-card">
-      {/* Cihaz görseli - Yüksek çözünürlük */}
-      <div className="order-card-image-container">
-        <img
-          src={order.cover ?? "https://via.placeholder.com/400x300?text=No+Image"}
-          className="order-card-image"
-          alt={order.phone_name ?? "Cihaz Adı Yok"}
-          loading="lazy"
-        />
-      </div>
-
-      {/* Cihaz bilgileri */}
-      <div className="order-card-body">
-        <h5 className="order-card-title">{order.phone_name ?? "Cihaz Adı Yok"}</h5>
-        
-        {/* Cihaz özellikleri */}
-        <div className="order-card-specs">
-          <div className="spec-item">
-            <span className="spec-label">Ekran:</span>
-            <span className="spec-value">{order.screen ?? "-"}</span>
-          </div>
-          <div className="spec-item">
-            <span className="spec-label">Hafıza:</span>
-            <span className="spec-value">{order.memory ?? "-"}</span>
-          </div>
-          <div className="spec-item">
-            <span className="spec-label">İşletim Sistemi:</span>
-            <span className="spec-value">
-              {Array.isArray(order.os) ? order.os.join(", ") : order.os ?? "-"}
-            </span>
-          </div>
+    <div className="order-card-group">
+      <div className="order-card-header" onClick={toggleExpansion}>
+        <div className="header-item">
+          <span className="label">Sipariş No</span>
+          <span className="value">#{order.orderId}</span>
         </div>
-
-        {/* Sipariş bilgileri */}
-        <div className="order-card-pricing">
-          <div className="pricing-item">
-            <span className="pricing-label">Adet:</span>
-            <span className="pricing-value quantity">{quantity}</span>
-          </div>
-          <div className="pricing-item">
-            <span className="pricing-label">Birim Fiyat:</span>
-            <span className="pricing-value">{(order.unit_price ?? 0).toLocaleString()} ₺</span>
-          </div>
-          <div className="pricing-item">
-            <span className="pricing-label">Ara Toplam:</span>
-            <span className="pricing-value">{(order.subtotal ?? 0).toLocaleString()} ₺</span>
-          </div>
-          <div className="pricing-item total">
-            <span className="pricing-label">Toplam:</span>
-            <span className="pricing-value total-price">{(order.total_price ?? 0).toLocaleString()} ₺</span>
-          </div>
+        <div className="header-item">
+          <span className="label">Tarih</span>
+          <span className="value">{order.orderDate}</span>
+        </div>
+        <div className="header-item">
+          <span className="label">Toplam Tutar</span>
+          <span className="value total-price">{order.totalPrice.toLocaleString()} ₺</span>
+        </div>
+        <div className="header-item toggle-icon-container">
+            <div className={`toggle-icon ${isExpanded ? 'expanded' : ''}`}>
+                <i className="bi bi-chevron-down"></i>
+            </div>
         </div>
       </div>
+
+      {isExpanded && (
+        <div className="order-items-container">
+          {order.items.map((item, index) => (
+            <div className="order-item" key={index}>
+              <img src={item.cover} alt={item.name} className="order-item-image" />
+              <div className="order-item-details">
+                <span className="name">{item.name}</span>
+                <span className="info">Adet: {item.quantity}</span>
+              </div>
+              <div className="order-item-price">
+                <span className="value">{(item.price * item.quantity).toLocaleString()} ₺</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 export default OrderCard;
-

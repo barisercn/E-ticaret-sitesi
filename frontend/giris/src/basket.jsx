@@ -1,41 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Navbar from './navbar.jsx';
-import DeviceCard from './deviceCard.jsx'; // Sepet için kart componenti
+import './basket.css';
 
 function Basket() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchCart = () => {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
       setCartItems(storedCart);
     };
   
-    fetchCart(); 
-    window.addEventListener("storage", fetchCart); // sepete ekleme olursa çalışsın
+    fetchCart();
+    window.addEventListener("storage", fetchCart);
   
     return () => window.removeEventListener("storage", fetchCart);
   }, []);
-  const removeFromCart = (name) => {
-    const updatedCart = cartItems.filter(item => item.name !== name); // seçileni çıkar
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // localStorage güncelle
-    window.dispatchEvent(new Event("storage")); // Navbar’ı güncelle
-  };
 
-  // Toplam fiyat hesaplama
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + (Number(item.price_tl) || 0) * (Number(item.quantity) || 0),
-    0
-  );
-  const clearCart = () => {
-    localStorage.setItem("cart", JSON.stringify([]));
-    setCartItems([]);
+  const updateCart = (updatedCart) => {
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
     window.dispatchEvent(new Event("storage"));
   };
-  const formattedPrice = totalPrice.toLocaleString("tr-TR", {
+
+  const handleQuantityChange = (name, newQuantity) => {
+    if (newQuantity < 1) return;
+    const updatedCart = cartItems.map(item => 
+      item.name === name ? { ...item, quantity: newQuantity } : item
+    );
+    updateCart(updatedCart);
+  };
+
+  const removeFromCart = (name) => {
+    const updatedCart = cartItems.filter(item => item.name !== name);
+    updateCart(updatedCart);
+  };
+
+  const clearCart = () => {
+    updateCart([]);
+  };
+
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + (Number(item.price_tl) || 0) * (item.quantity || 0),
+    0
+  );
+
+  const formattedPrice = (price) => price.toLocaleString("tr-TR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
@@ -43,38 +57,64 @@ function Basket() {
   return (
     <>
       <Navbar />
+      <div className="basket-page-background">
+        <div className="container">
+          <h1 className="basket-title">Sepetim</h1>
+          {cartItems.length > 0 ? (
+            <div className="basket-content">
+              {/* Left Column: Items List */}
+              <div className="basket-items-list">
+                {cartItems.map(item => (
+                  <div className="basket-item" key={item.name}>
+                    <img src={item.cover} alt={item.name} className="basket-item-image" />
+                    <div className="basket-item-details">
+                      <div className="name">{item.name}</div>
+                      <div className="basket-item-price">{formattedPrice(Number(item.price_tl) || 0)} TL</div>
+                    </div>
+                    <div className="basket-item-actions">
+                      <div className="quantity-controls">
+                        <button className="quantity-btn" onClick={() => handleQuantityChange(item.name, item.quantity - 1)}>-</button>
+                        <span className="quantity-display">{item.quantity}</span>
+                        <button className="quantity-btn" onClick={() => handleQuantityChange(item.name, item.quantity + 1)}>+</button>
+                      </div>
+                      <button className="remove-item-btn" onClick={() => removeFromCart(item.name)}>
+                        <i className="bi bi-trash3-fill"></i>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-      <div style={{ backgroundColor: "#e28743", minHeight: "100vh" }}>
-        <div className="container pt-4">
-          <div className="row"> <h2 className="text-center text-white fw-bold mb-2" style={{fontSize: "2rem" , backgroundColor: "#e28743" }} >Sepetim</h2></div>
-         
-          <div className="row g-4">
-            {cartItems.length > 0 ? (
-              cartItems.map(item => (
-                <div className="col-md-4" key={item.name}>
-                  <DeviceCard device={item} isCartPage={true}
-                 removeFromCart={removeFromCart} 
-                  />
+              {/* Right Column: Order Summary */}
+              <div className="order-summary">
+                <h3>Sipariş Özeti</h3>
+                <div className="summary-row">
+                  <span>Ara Toplam</span>
+                  <span>{formattedPrice(totalPrice)} TL</span>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-white fs-5">Sepetiniz boş.</p>
-            )}
-          </div>
-
-          {cartItems.length > 0 && (
-            <>
-             <div class="d-grid gap-2 col-6 mx-auto">
-             <button 
-  className="btn btn-primary mt-3" 
-  type="button" 
-  onClick={() => navigate('/order')}
->
-  Sipariş Ver Tutar: {formattedPrice} TL
-</button>
-  <button class="btn btn-danger mt-1" type="button" onClick={clearCart}>sepeti boşalt</button>
-</div>
-            </>
+                <div className="summary-row">
+                  <span>Kargo</span>
+                  <span>Ücretsiz</span>
+                </div>
+                <div className="summary-row total">
+                  <span>Toplam</span>
+                  <span>{formattedPrice(totalPrice)} TL</span>
+                </div>
+                <div className="order-summary-buttons">
+                  <button className="btn btn-primary place-order-btn" onClick={() => navigate('/order')}>
+                    Siparişi Ver
+                  </button>
+                  <button className="btn clear-cart-btn" onClick={clearCart}>
+                    Sepeti Temizle
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="empty-basket-container">
+              <i className="bi bi-cart-x-fill"></i>
+              <p>Sepetinizde ürün bulunmuyor.</p>
+            </div>
           )}
         </div>
       </div>

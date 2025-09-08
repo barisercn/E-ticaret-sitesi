@@ -170,8 +170,7 @@ app.post("/order", async (req, res) => {
 
 app.post("/myOrders", async (req, res) => {
   const { personId } = req.body;
-console.log("req.body:", req.body);
-console.log("personId:", personId);
+
 
   if (!personId) {
     return res.status(400).json({ error: "PersonID gönderilmedi!" });
@@ -179,8 +178,7 @@ console.log("personId:", personId);
 
   try {
     const orders = await getOrdersByCustomer(personId);
-    console.log(personId)
-    console.log(orders)
+    
     res.json(orders);
     
   } catch (err) {

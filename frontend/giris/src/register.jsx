@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { useEffect } from "react";
+import './register.css'; // Yeni CSS dosyasını import et
+
 function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,33 +16,29 @@ function RegisterForm() {
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => setError(""), 4000);
-      return () => clearTimeout(timer); // Component yeniden render olursa eski timer iptal edilir
+      return () => clearTimeout(timer);
     }
   }, [error]);
 
   useEffect(() => {
     if (message) {
-      const timer = setTimeout(() => setMessage(""), 4000);
+      const timer = setTimeout(() => {
+        setMessage("");
+        navigate("/login"); // Kayıt başarılı olunca login'e yönlendir
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [message]);
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
-
-    // Şifre eşleşme kontrolü
     if (password !== confirmPassword) {
       setError("Şifreler eşleşmiyor");
-      setMessage("");
-      setPassword("");
-      setConfirmPassword("");
       return;
     }
     if (password.length < 8) {
       setError("Şifre en az 8 karakter olmalıdır");
-      setMessage("");
-      setPassword("");
-      setConfirmPassword("");
       return;
     }
 
@@ -56,115 +52,103 @@ function RegisterForm() {
       const data = await response.json();
 
       if (data.success) {
-        setMessage("Kullanıcı kaydı başarılı");
+        setMessage("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...");
         setError("");
         setUsername("");
         setPassword("");
         setConfirmPassword("");
         setEmail("");
       } else {
-        setError(data.message);
-        setMessage("");
+        setError(data.message || "Kayıt sırasında bir hata oluştu.");
       }
     } catch (err) {
       setError("Sunucuya bağlanılamadı");
-      setMessage("");
-      setTimeout(() => setError(""), 3000);
     }
   };
 
   return (
-    <div className="container mt-5">
-      <form id="Form" onSubmit={handleRegister}>
-        <h4 style={{ textAlign: "center", color: "blue", marginBottom: "30px" }}>
-          Kullanıcı Kayıt Formu
-        </h4>
+    <div className="register-page-container">
+      <div className="register-form-wrapper">
+        <h2>Hesap Oluştur</h2>
+        <p className="text-muted mb-4">Yeni bir hesap oluşturmak için bilgileri doldurun.</p>
+        <form id="Form" onSubmit={handleRegister} autoComplete="off">
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label"></label>
+            <div className="input-group">
+              <span className="input-group-text"><i className="bi bi-person-fill"></i></span>
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                placeholder="Bir kullanıcı adı seçin"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-        <div className="mb-1" style={{ maxWidth: "450px", margin: "0 auto" }}>
-          <label htmlFor="username" className="form-label ms-3">
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Kullanıcı Adı"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label"></label>
+            <div className="input-group">
+              <span className="input-group-text"><i className="bi bi-envelope-fill"></i></span>
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                placeholder="E-posta adresinizi girin"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-        <div className="mb-1" style={{ maxWidth: "450px", margin: "0 auto" }}>
-          <label htmlFor="password" className="form-label ms-3">
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Şifre"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label"></label>
+            <div className="input-group">
+              <span className="input-group-text"><i className="bi bi-lock-fill"></i></span>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                placeholder="En az 8 karakterli bir şifre oluşturun"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-        <div className="mb-1" style={{ maxWidth: "450px", margin: "0 auto" }}>
-          <label htmlFor="confirmPassword" className="form-label ms-3">
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="confirmPassword"
-            placeholder="Şifre Tekrar"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="confirmPassword" className="form-label"></label>
+            <div className="input-group">
+              <span className="input-group-text"><i className="bi bi-lock-fill"></i></span>
+              <input
+                type="password"
+                id="confirmPassword"
+                className="form-control"
+                placeholder="Şifrenizi tekrar girin"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-        <div className="mb-1" style={{ maxWidth: "450px", margin: "0 auto" }}>
-          <label htmlFor="email" className="form-label ms-3">
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+          {error && <div className="alert alert-danger text-center mt-3">{error}</div>}
+          {message && <div className="alert alert-success text-center mt-3">{message}</div>}
 
-        <div style={{ maxWidth: "450px", margin: "40px auto 0", textAlign: "center" }}>
           <button type="submit" className="btn btn-primary">
-            <i className="bi bi-box-arrow-in-right me-2"></i>
             Kayıt Ol
           </button>
-        </div>
-        <div style={{ maxWidth: "450px", margin: "20px auto 0", textAlign: "center" }}>
-          <p>
-            <a href="/login" className="text-primary" style={{ textDecoration: "none" }}>
-              Zaten hesabınız var mı? Giriş yapın
-            </a>
-          </p>
-        </div>
-        {error && (
-          <div
-            className="alert alert-danger mt-3"
-            style={{ maxWidth: "450px", margin: "40px auto 0", textAlign: "center" }}
-          >
-            {error}
+
+          <div className="login-link">
+            <span>Zaten bir hesabın var mı? </span>
+            <a href="/login" className="text-primary text-decoration-none">Giriş Yap</a>
           </div>
-        )}
-        {message && (
-          <div
-            className="alert alert-success mt-3"
-            style={{ maxWidth: "450px", margin: "40px auto 0", textAlign: "center" }}
-          >
-            {message}
-          </div>
-        )}
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

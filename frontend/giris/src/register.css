@@ -1,0 +1,62 @@
+/* register.css */
+
+.register-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); /* Soft gradient background */
+}
+
+.register-form-wrapper {
+  width: 100%;
+  max-width: 480px; /* Slightly wider for more fields */
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.register-form-wrapper h2 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.register-form-wrapper .form-label {
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.register-form-wrapper .input-group .form-control {
+  height: 50px;
+  border-left: 0;
+}
+
+.register-form-wrapper .input-group-text {
+  background-color: transparent;
+  border-right: 0;
+}
+
+.register-form-wrapper .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.register-form-wrapper .btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.register-form-wrapper .login-link {
+  text-align: center;
+  margin-top: 20px;
+}

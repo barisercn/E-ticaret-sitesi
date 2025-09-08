@@ -1,15 +1,54 @@
-.card-img-top {
-    object-fit: contain;   /* Resmi kırpmadan orantılı yerleştirir */
-    height: 200px;         /* Hepsine sabit yükseklik */
-  }
-  .card {
-    height: 50%;
-    background-color:  #33a5ca;
-  }
-.card:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-    border: 1px solid #0d6efd; /* Bootstrap primary */
-  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
-  background-color: #eeeee4;
+/* brands.css - Modernized */
+
+.brands-page-background {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8e44ad 100%);
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.brand-card-link {
+  text-decoration: none;
+}
+
+.brand-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  height: 280px; /* Fixed height for all cards */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* This is key for vertical centering */
+  padding: 1.5rem;
+}
+
+.brand-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+.brand-logo-container {
+  flex-grow: 1; /* Allows the container to fill space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.brand-logo {
+  max-width: 80%;
+  max-height: 120px;
+  object-fit: contain; /* Ensures logo is scaled correctly */
+}
+
+.brand-card .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-top: 1rem; /* Space between logo and name */
+  margin-bottom: 0;
 }

@@ -1,49 +1,54 @@
-import React from 'react'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './navbar';
 import DeviceCard from './deviceCard';
-function favorites() {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './favorites.css'; // Import the new CSS
+
+function Favorites() { // Renamed to PascalCase
   const [favorites, setFavorites] = useState([]);
+
   useEffect(() => {
-    // localStorage'dan veriyi al
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(storedFavorites);
 
-    // storage event fonksiyonu
     const updateFavorites = () => {
       const updated = JSON.parse(localStorage.getItem("favorites")) || [];
       setFavorites(updated);
     };
 
-    // storage event dinle
     window.addEventListener("storage", updateFavorites);
 
-    // cleanup
     return () => window.removeEventListener("storage", updateFavorites);
   }, []);
 
   return (
     <>
       <Navbar />
-      <div style={{ backgroundColor: "#e28743", minHeight: "100vh" }}>
-        {favorites.length === 0 ? (
-          <p className="text-center text-white">Henüz favori ürününüz yok.</p>
-        ) : (
-          <div className="row g-4 mt-2 my-2">
-            {favorites.map((device, index) => (
-              <div className="col-md-4" key={index}>
-                <DeviceCard 
-                  device={device} 
-                  isCartPage={false} // cart sayfası değil
-                />
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="favorites-page-background">
+        <div className="container">
+          <h1 className="favorites-title">Favorilerim</h1>
+          {favorites.length === 0 ? (
+            <div className="no-favorites-container">
+              <i className="bi bi-heartbreak-fill"></i>
+              <p>Henüz favori ürününüz yok.</p>
+            </div>
+          ) : (
+            <div className="row g-4">
+              {favorites.map((device, index) => (
+                <div className="col-lg-4 col-md-6" key={`${device.name}-${index}`}>
+                  <DeviceCard 
+                    device={device} 
+                    isCartPage={false}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
 }
 
-export default favorites
+export default Favorites;
